@@ -1,0 +1,1 @@
+export const aboutMe = `Hi, I'm Vishesh Bhandare — a full stack developer passionate about building user-focused apps across web and mobile. I specialize in Android, React, and React Native, and enjoy turning ideas into smooth, functional experiences.`; 
