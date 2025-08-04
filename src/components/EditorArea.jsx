@@ -5,6 +5,10 @@ import gmailLogo from '../assets/gmailLogo.svg';
 import githubLogo from '../assets/githubLogo.svg';
 import linkedInLogo from '../assets/linkedInLogo.svg';
 import instagramLogo from '../assets/instagramlogo.svg';
+import runCode from '../assets/runcode.svg';
+import splitScreen from '../assets/splitscreen.svg';
+import searchIcon from '../assets/search.svg';
+import printIcon from '../assets/print.svg';
 
 // Static file content
 const fileContent = {
@@ -226,6 +230,13 @@ const EditorArea = ({ openFiles, activeFile, setActiveFile, files, onCloseFile, 
             onFileContentChange(activeFile, newContent);
         }
     };
+
+    // Reset preview state when switching files
+    useEffect(() => {
+        setIsPreview(false);
+        setTypedText('');
+        setTypingIndex(0);
+    }, [activeFile]);
 
     // Typewriter effect for preview mode (now only for heading)
     useEffect(() => {
@@ -719,7 +730,7 @@ const EditorArea = ({ openFiles, activeFile, setActiveFile, files, onCloseFile, 
             {/* Tabs: Scrollable on mobile */}
             <div className="flex items-center h-8 bg-[#222223] px-2">
                 {/* Tabs: Scrollable on mobile */}
-                <div className="flex overflow-x-auto hide-scrollbar flex-1 mr-2">
+                <div className="flex overflow-x-auto hide-scrollbar flex-1 mr-2 max-w-[calc(100%-200px)]">
                     {openFiles.map((file) => {
                         const icon = findFileIcon(files, file);
                         return (
@@ -751,57 +762,75 @@ const EditorArea = ({ openFiles, activeFile, setActiveFile, files, onCloseFile, 
                     })}
                 </div>
 
-                {/* Download Button for Resume or Play Button for other files */}
-                {activeFile === 'resume.md' ? (
-                    <a
-                        href="/resume.pdf"
-                        download="Vishesh_Resume.pdf"
-                        className="px-3 py-1 hover:bg-[rgba(103,107,121,0.4)] rounded text-[#19f9d8] flex items-center justify-center flex-shrink-0 transition-colors duration-300"
-                        title="Download Resume"
-                    >
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 16 16"
-                            fill="currentColor"
-                            className="w-4 h-4 mr-1"
+                {/* Fixed Action Buttons - Always visible */}
+                <div className="flex items-center gap-1 flex-shrink-0 absolute right-2">
+                    {activeFile === 'resume.md' ? (
+                        <a
+                            href="/resume.pdf"
+                            download="Vishesh_Resume.pdf"
+                            className="px-3 py-1 hover:bg-[rgba(103,107,121,0.4)] rounded text-[#19f9d8] flex items-center justify-center flex-shrink-0 transition-colors duration-300"
+                            title="Download Resume"
                         >
-                            <path d="M8 1v8.5L4.5 6 3 7.5 8 12.5 13 7.5 11.5 6 8 9.5V1H8z" />
-                            <path d="M2 13h12v1H2v-1z" />
-                        </svg>
-                        Download
-                    </a>
-                ) : !isPreview ? (
-                    <TransparentButton
-                        aria-label={isPythonFile(activeFile) ? "Run Python" : "Play"}
-                        className="px-2 py-1 hover:bg-[rgba(103,107,121,0.4)] rounded text-[#19f9d8] flex items-center justify-center flex-shrink-0"
-                        onClick={handlePlayButton}
-                        title={isPythonFile(activeFile) ? "Run Python Code" : "Preview"}
-                    >
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 16 16"
-                            fill="currentColor"
-                            className="w-4 h-4"
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 16 16"
+                                fill="currentColor"
+                                className="w-4 h-4 mr-1"
+                            >
+                                <path d="M8 1v8.5L4.5 6 3 7.5 8 12.5 13 7.5 11.5 6 8 9.5V1H8z" />
+                                <path d="M2 13h12v1H2v-1z" />
+                            </svg>
+                            Download
+                        </a>
+                    ) : !isPreview ? (
+                        <>
+                            <TransparentButton
+                                aria-label={isPythonFile(activeFile) ? "Run Python" : "Play"}
+                                className="px-2 py-1 hover:bg-[rgba(103,107,121,0.4)] rounded text-[#19f9d8] flex items-center justify-center flex-shrink-0"
+                                onClick={handlePlayButton}
+                                title={isPythonFile(activeFile) ? "Run Python Code" : "Preview"}
+                            >
+                                <img src={runCode} alt="run code" className="w-4 h-4" />
+                            </TransparentButton>
+                            <TransparentButton
+                                aria-label="Split screen"
+                                className="px-2 py-1 hover:bg-[rgba(103,107,121,0.4)] rounded text-[#19f9d8] flex items-center justify-center flex-shrink-0"
+                                title="Split Screen"
+                            >
+                                <img src={splitScreen} alt="split screen" className="w-4 h-4" />
+                            </TransparentButton>
+                            <TransparentButton
+                                aria-label="Search"
+                                className="px-2 py-1 hover:bg-[rgba(103,107,121,0.4)] rounded text-[#19f9d8] flex items-center justify-center flex-shrink-0"
+                                title="Search"
+                            >
+                                <img src={searchIcon} alt="search" className="w-4 h-4" />
+                            </TransparentButton>
+                            <TransparentButton
+                                aria-label="Print"
+                                className="px-2 py-1 hover:bg-[rgba(103,107,121,0.4)] rounded text-[#19f9d8] flex items-center justify-center flex-shrink-0"
+                                title="Print"
+                            >
+                                <img src={printIcon} alt="print" className="w-4 h-4" />
+                            </TransparentButton>
+                        </>
+                    ) : (
+                        <TransparentButton
+                            aria-label="Back to Code"
+                            className="px-2 py-1 hover:bg-[rgba(103,107,121,0.4)] rounded text-[#19f9d8] flex items-center justify-center flex-shrink-0"
+                            onClick={() => setIsPreview(false)}
                         >
-                            <path d="M4 3.5v9l8-4.5-8-4.5z" />
-                        </svg>
-                    </TransparentButton>
-                ) : (
-                    <TransparentButton
-                        aria-label="Back to Code"
-                        className="px-2 py-1 hover:bg-[rgba(103,107,121,0.4)] rounded text-[#19f9d8] flex items-center justify-center flex-shrink-0"
-                        onClick={() => setIsPreview(false)}
-                    >
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 16 16"
-                            fill="currentColor"
-                            className="w-4 h-4"
-                        >
-                            <path d="M11.5 3.5l-6 4.5 6 4.5v-9z" />
-                        </svg>
-                    </TransparentButton>
-                )}
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 16 16"
+                                fill="currentColor"
+                                className="w-4 h-4"
+                            >
+                                <path d="M11.5 3.5l-6 4.5 6 4.5v-9z" />
+                            </svg>
+                        </TransparentButton>
+                    )}
+                </div>
             </div>
 
             {/* Editor Content or Preview */}

@@ -160,56 +160,67 @@ const VideoModal = ({ isOpen, onClose, projectName, videoSrc }) => {
                 description: 'A React and GSAP-powered landing page with advanced animations',
                 tech: ['React.js', 'GSAP', 'Tailwind CSS'],
                 type: 'Web Application',
-                logo: projectLogos['clash-of-clans.jsx']
+                logo: projectLogos['clash-of-clans.jsx'],
+                github: 'https://github.com/vishesh2201/clash_of_clans',
+                live: 'https://readytoclash.vercel.app/'
             },
             'linkedout.tsx': {
                 title: 'linkedOut',
                 description: 'A full-stack web application for technical interview preparation',
                 tech: ['Next.js', 'Firebase', 'React.js', 'VAPI'],
                 type: 'Web Application',
-                logo: projectLogos['linkedout.tsx']
+                logo: projectLogos['linkedout.tsx'],
+                github: 'https://github.com/vishesh2201/you_are_hired',
+                live: 'https://linkedout-sable.vercel.app/sign-in'
             },
             'brainwave.jsx': {
                 title: 'Brainwave',
                 description: 'A React and Tailwind CSS website showcasing Generative AI software',
                 tech: ['React.js', 'Tailwind CSS'],
                 type: 'Web Application',
-                logo: projectLogos['brainwave.jsx']
+                logo: projectLogos['brainwave.jsx'],
+                github: 'https://github.com/vishesh2201/brainwave',
+                live: 'https://brainwave-vishesh.vercel.app/'
             },
             'manache-ganpati.apk': {
                 title: 'Manache 5 Ganpati App',
                 description: 'Real-time updates for Pune\'s Manache Ganpati locations',
                 tech: ['Android Studio', 'Java', 'Google Maps API'],
                 type: 'Mobile Application',
-                logo: projectLogos['manache-ganpati.apk']
+                logo: projectLogos['manache-ganpati.apk'],
+                github: 'https://github.com/vishesh2201/Manache-5-Ganpati-App'
             },
             'tic-tac-two.apk': {
                 title: 'Tic Tac Two',
                 description: 'Advanced Tic-Tac-Toe with vanishing moves mechanic',
                 tech: ['Android Studio', 'Java'],
                 type: 'Mobile Game',
-                logo: projectLogos['tic-tac-two.apk']
+                logo: projectLogos['tic-tac-two.apk'],
+                github: 'https://github.com/vishesh2201/TicTacTwo'
             },
             'swipeflix.apk': {
                 title: 'Swipeflix',
                 description: 'Movie-matching app like Tinder for groups',
                 tech: ['Android Studio', 'Kotlin', 'Firebase', 'TMDB API'],
                 type: 'Mobile Application',
-                logo: projectLogos['swipeflix.apk']
+                logo: projectLogos['swipeflix.apk'],
+                github: 'https://github.com/vishesh2201/SwipeFlix'
             },
             'guess-the-flag.apk': {
                 title: 'Guess the Flag',
                 description: 'Educational flag identification game',
                 tech: ['Android Studio', 'Kotlin'],
                 type: 'Educational Game',
-                logo: projectLogos['guess-the-flag.apk']
+                logo: projectLogos['guess-the-flag.apk'],
+                github: 'https://github.com/deshmukharjun/GuessTheFlag-App'
             },
             'polo.apk': {
                 title: 'Polo',
                 description: 'Location-sharing compass app for events',
                 tech: ['React Native', 'Supabase', 'Expo'],
                 type: 'Mobile Application',
-                logo: projectLogos['polo.apk']
+                logo: projectLogos['polo.apk'],
+                github: 'https://github.com/vishesh2201/polo'
             }
         };
 
@@ -272,6 +283,7 @@ const VideoModal = ({ isOpen, onClose, projectName, videoSrc }) => {
                             <video
                                 ref={videoRef}
                                 className="w-full h-auto max-h-[60vh]"
+                                muted
                                 onTimeUpdate={handleTimeUpdate}
                                 onLoadedMetadata={handleLoadedMetadata}
                                 onPlay={() => setIsPlaying(true)}
@@ -372,6 +384,30 @@ const VideoModal = ({ isOpen, onClose, projectName, videoSrc }) => {
                                         </div>
                                     ))}
                                 </div>
+                            </div>
+
+                            {/* Project Links */}
+                            <div className="flex gap-4">
+                                {projectInfo.github && (
+                                    <a
+                                        href={projectInfo.github}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="flex-1 px-4 py-2 bg-[#23272e] text-[#19f9d8] rounded hover:bg-[#19f9d8] hover:text-[#23272e] transition-colors font-semibold text-center"
+                                    >
+                                        GitHub
+                                    </a>
+                                )}
+                                {projectInfo.live && (
+                                    <a
+                                        href={projectInfo.live}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="flex-1 px-4 py-2 bg-[#19f9d8] text-[#23272e] rounded hover:bg-[#23272e] hover:text-[#19f9d8] transition-colors font-semibold text-center"
+                                    >
+                                        Live Site
+                                    </a>
+                                )}
                             </div>
 
                             <div className="pt-4 border-t border-[#3a3a3a]">
