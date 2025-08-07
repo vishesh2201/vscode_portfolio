@@ -1,23 +1,35 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Sidebar from './components/Sidebar';
 import StatusBar from './components/StatusBar';
 import EditorArea from './components/EditorArea';
 import { files } from './data/files';
 import TopMenuBar from "./components/topMenuBar";
 import Terminal from './components/Terminal';
+import GuidedTour from './components/GuidedTour';
 
 function App() {
   const [activeFile, setActiveFile] = useState('about-me.jsx');
   const [openFiles, setOpenFiles] = useState([
     'about-me.jsx',
     'contact.json',
-    'projects.js',
     'resume.md'
   ]);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false); // State for sidebar toggle on mobile
   const [temporaryFiles, setTemporaryFiles] = useState({}); // Store temporary file content
   const [tempFileCounter, setTempFileCounter] = useState(1); // Counter for unique temp file names
   const [isTerminalOpen, setIsTerminalOpen] = useState(false); // State for terminal
+  const [showTour, setShowTour] = useState(false);
+
+  useEffect(() => {
+    const dontShow = localStorage.getItem('dontShowTour');
+    if (!dontShow) {
+      setShowTour(true);
+    }
+  }, []);
+
+  const handleDontShowAgain = () => {
+    localStorage.setItem('dontShowTour', 'true');
+  };
 
   const handleCloseFile = (file) => {
     setOpenFiles((prev) => {
@@ -223,6 +235,7 @@ function App() {
         <div
           className={`fixed md:static inset-y-0 left-0 z-50 bg-[#222223] w-60 transform transition-transform duration-300 ease-in-out ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'
             }`}
+          data-tour="sidebar"
         >
           <Sidebar
             files={files}
@@ -256,6 +269,13 @@ function App() {
         isOpen={isTerminalOpen}
         onClose={() => setIsTerminalOpen(false)}
         activeFile={activeFile}
+      />
+
+      {/* Guided Tour */}
+      <GuidedTour
+        isOpen={showTour}
+        onClose={() => setShowTour(false)}
+        onDontShowAgain={handleDontShowAgain}
       />
     </div>
   );

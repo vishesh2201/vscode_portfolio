@@ -310,7 +310,7 @@ const EditorArea = ({ openFiles, activeFile, setActiveFile, files, onCloseFile, 
     useEffect(() => {
         if (activeFile === 'contact.json') {
             setContactLoading(true);
-            fetch('/src/data/contact.json')
+            fetch('/contact.json')
                 .then((res) => res.json())
                 .then((data) => {
                     setContactData(data);
@@ -789,6 +789,7 @@ const EditorArea = ({ openFiles, activeFile, setActiveFile, files, onCloseFile, 
                                 className="px-2 py-1 hover:bg-[rgba(103,107,121,0.4)] rounded text-[#19f9d8] flex items-center justify-center flex-shrink-0"
                                 onClick={handlePlayButton}
                                 title={isPythonFile(activeFile) ? "Run Python Code" : "Preview"}
+                                data-tour="play-button"
                             >
                                 <img src={runCode} alt="run code" className="w-4 h-4" />
                             </TransparentButton>

@@ -1,0 +1,24 @@
+{
+  "contacts": [
+    {
+      "type": "LinkedIn",
+      "value": "Vishesh Bhandare",
+      "link": "https://www.linkedin.com/in/vishesh-bhandare-1a9906244/"
+    },
+    {
+      "type": "Email",
+      "value": "visheshbhandare9@gmail.com",
+      "link": "mailto:visheshbhandare9@gmail.com"
+    },
+    {
+      "type": "Instagram",
+      "value": "@wisheswithoutwishes",
+      "link": "https://www.instagram.com/wisheswithoutwishes/?hl=en"
+    },
+    {
+      "type": "GitHub",
+      "value": "vishesh2201",
+      "link": "https://github.com/vishesh2201"
+    }
+  ]
+} 

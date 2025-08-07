@@ -60,6 +60,7 @@ function TopMenuBar({ toggleSidebar, onNewFile, onTerminalClick }) {
                         key={item}
                         onClick={() => setOpenMenu(openMenu === item ? null : item)}
                         className="hover:bg-[rgba(103,107,121,0.4)] px-2 py-1 rounded cursor-pointer"
+                        data-tour={item === 'File' ? 'file-button' : item === 'Terminal' ? 'terminal-button' : undefined}
                     >
                         {item}
                         {/* File Menu Dropdown */}
