@@ -243,7 +243,7 @@ function App() {
   };
 
   return (
-    <div className="flex flex-col h-screen w-screen font-mono text-white">
+    <div className="flex flex-col h-screen md:h-screen min-h-screen w-screen font-mono text-white overflow-y-auto md:overflow-hidden">
       {/* Mobile rotate-to-landscape prompt */}
       {showRotateHint && (
         <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/90 md:hidden">
@@ -267,7 +267,7 @@ function App() {
         onNewFile={handleNewFile}
         onTerminalClick={handleTerminalClick}
       />
-      <div className="flex flex-1 overflow-hidden">
+      <div className="flex flex-1 overflow-visible md:overflow-hidden relative">
         {/* Sidebar: Hidden on mobile, toggleable */}
         <div
           className={`fixed md:static inset-y-0 left-0 z-50 bg-[#222223] w-60 transform transition-transform duration-300 ease-in-out ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'

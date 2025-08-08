@@ -415,14 +415,14 @@ const EditorArea = ({ openFiles, activeFile, setActiveFile, files, onCloseFile, 
             // Special preview for about-me.jsx
             const aboutLines = content.split('\n');
             return (
-                <div className="w-full h-full flex flex-col items-center justify-start md:justify-center animate-fade-in py-6 px-4 md:py-0 md:px-0">
+                <div className="w-full h-full flex flex-col items-center justify-start md:justify-center animate-fade-in py-6 px-4 md:py-8 md:px-8">
                     <h1 className="text-2xl md:text-3xl font-extrabold mb-4 text-white text-center drop-shadow-lg" style={{ fontFamily: 'Yeseva One, serif', letterSpacing: '0.01em', minHeight: '2em' }}>
                         {typedText}
                     </h1>
                     <div className={`flex flex-col gap-4 max-w-2xl w-full md:w-auto transition-opacity duration-700 ${showBody ? 'opacity-100' : 'opacity-0'}`}
                         style={{ fontFamily: 'Montserrat, sans-serif' }}>
                         {aboutLines.slice(1).map((line, idx) => (
-                            <p key={idx} className="text-sm md:text-base text-white text-center leading-relaxed drop-shadow">
+                            <p key={idx} className="text-sm md:text-base text-white text-center leading-relaxed drop-shadow px-2">
                                 {line}
                             </p>
                         ))}
@@ -701,7 +701,7 @@ const EditorArea = ({ openFiles, activeFile, setActiveFile, files, onCloseFile, 
                 <h2 className="text-4xl md:text-5xl font-extrabold mb-6 md:mb-8 text-white text-center drop-shadow-lg" style={{ fontFamily: 'Yeseva One, serif', letterSpacing: '0.01em', minHeight: '2em' }}>
                     Contact Me
                 </h2>
-                <div className="w-full max-w-2xl overflow-y-auto max-h-[60vh] md:max-h-[50vh] pr-2">
+                <div className="w-full max-w-2xl pr-2">
                     <ul className="space-y-6">
                         {contactData.contacts.map((c, idx) => (
                             <li key={idx} className="flex items-center gap-4">
@@ -942,19 +942,19 @@ const EditorArea = ({ openFiles, activeFile, setActiveFile, files, onCloseFile, 
             ) : (
                 <div className="flex-1 relative min-h-0">
                     {/* Space-themed background with starfield overlay */}
-                    <div className="absolute inset-0 flex items-start md:items-center justify-center overflow-auto md:overflow-hidden" style={{
+                    <div className="w-full min-h-[60vh] md:min-h-0 md:absolute md:inset-0 flex items-start md:items-center justify-center overflow-visible md:overflow-hidden" style={{
                         background: 'linear-gradient(135deg, #05010a 0%, #0a1833 70%, #10131a 100%)'
                     }}>
                         {/* Starfield overlay */}
-                        <canvas
-                            id="starfield-canvas"
-                            className="pointer-events-none absolute inset-0 z-0"
-                            style={{ width: '100%', height: '100%', display: 'block' }}
-                        />
-                        {/* Small white nebula/star in top right */}
-
-                        <div className="w-full h-full flex items-start md:items-center justify-center z-10 p-3 sm:p-4 md:p-0">
-                            {renderPreview()}
+                        <div className="relative w-full">
+                            <canvas
+                                id="starfield-canvas"
+                                className="pointer-events-none absolute inset-0 z-0"
+                                style={{ width: '100%', height: '100%', display: 'block' }}
+                            />
+                            <div className="relative z-10 w-full flex items-start md:items-center justify-center p-3 sm:p-4 md:p-8">
+                                {renderPreview()}
+                            </div>
                         </div>
                     </div>
                 </div>
