@@ -728,9 +728,9 @@ const EditorArea = ({ openFiles, activeFile, setActiveFile, files, onCloseFile, 
     return (
         <div className="flex flex-col flex-1 bg-[#292a2b] text-gray-200 relative min-h-0" ref={contentRef}>
             {/* Tabs: Scrollable on mobile */}
-            <div className="flex items-center h-8 bg-[#222223] px-2">
+            <div className="flex items-center h-8 bg-[#222223] px-2 sticky top-0 z-10">
                 {/* Tabs: Scrollable on mobile */}
-                <div className="flex overflow-x-auto hide-scrollbar flex-1 mr-2 max-w-[calc(100%-200px)]">
+                <div className="flex overflow-x-auto hide-scrollbar flex-1 mr-2 max-w-full sm:max-w-[calc(100%-200px)]">
                     {openFiles.map((file) => {
                         const icon = findFileIcon(files, file);
                         return (
@@ -867,7 +867,7 @@ const EditorArea = ({ openFiles, activeFile, setActiveFile, files, onCloseFile, 
             ) : !isPreview ? (
                 <div className="flex flex-1 overflow-auto text-xs md:text-sm font-mono min-h-0 editor-content">
                     {/* Line Numbers */}
-                    <div className="text-[#19f9d8]/50 py-2 text-right select-none w-8">
+                    <div className="text-[#19f9d8]/50 py-2 text-right select-none w-8 flex-shrink-0">
                         {Array.from({ length: maxLines }, (_, index) => (
                             <div key={index} className="leading-relaxed">
                                 {index + 1}
@@ -875,7 +875,7 @@ const EditorArea = ({ openFiles, activeFile, setActiveFile, files, onCloseFile, 
                         ))}
                     </div>
                     {/* File Content with Syntax Highlighting or Editable Textarea */}
-                    <div className="px-2 md:px-4 py-2 whitespace-pre-wrap flex-1 bg-[#292a2b]">
+                    <div className="px-2 md:px-4 py-2 whitespace-pre-wrap break-words flex-1 bg-[#292a2b] min-w-0">
                         {isTemporaryFile(activeFile) ? (
                             // Editable textarea for temporary files
                             <textarea

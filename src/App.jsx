@@ -19,12 +19,31 @@ function App() {
   const [tempFileCounter, setTempFileCounter] = useState(1); // Counter for unique temp file names
   const [isTerminalOpen, setIsTerminalOpen] = useState(false); // State for terminal
   const [showTour, setShowTour] = useState(false);
+  const [showRotateHint, setShowRotateHint] = useState(false); // Prompt users to rotate on mobile
 
   useEffect(() => {
     const dontShow = localStorage.getItem('dontShowTour');
     if (!dontShow) {
       setShowTour(true);
     }
+  }, []);
+
+  // Show rotate-to-landscape hint on small screens in portrait
+  useEffect(() => {
+    const updateRotateHint = () => {
+      const isMobile = window.innerWidth < 768;
+      const isPortrait = window.innerHeight > window.innerWidth;
+      const hideRotatePrompt = localStorage.getItem('hideRotatePrompt') === 'true';
+      setShowRotateHint(isMobile && isPortrait && !hideRotatePrompt);
+    };
+
+    updateRotateHint();
+    window.addEventListener('resize', updateRotateHint);
+    window.addEventListener('orientationchange', updateRotateHint);
+    return () => {
+      window.removeEventListener('resize', updateRotateHint);
+      window.removeEventListener('orientationchange', updateRotateHint);
+    };
   }, []);
 
   const handleDontShowAgain = () => {
@@ -225,6 +244,24 @@ function App() {
 
   return (
     <div className="flex flex-col h-screen w-screen font-mono text-white">
+      {/* Mobile rotate-to-landscape prompt */}
+      {showRotateHint && (
+        <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/90 md:hidden">
+          <div className="mx-6 p-5 rounded-lg bg-[#1a1a1a] border border-[#333] text-center shadow-xl max-w-sm">
+            <div className="text-white text-base mb-2">Best viewed in landscape</div>
+            <div className="text-[#19f9d8] text-sm mb-4">Please rotate your device</div>
+            <button
+              className="px-4 py-2 rounded bg-[#19f9d8] text-[#23272e] font-semibold hover:opacity-90 transition"
+              onClick={() => {
+                localStorage.setItem('hideRotatePrompt', 'true');
+                setShowRotateHint(false);
+              }}
+            >
+              Continue anyway
+            </button>
+          </div>
+        </div>
+      )}
       <TopMenuBar
         toggleSidebar={toggleSidebar}
         onNewFile={handleNewFile}
@@ -247,8 +284,9 @@ function App() {
         {/* Overlay for mobile sidebar */}
         {isSidebarOpen && (
           <div
-            className="fixed inset-0 bg-black bg-opacity-50 md:hidden"
+            className="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden"
             onClick={toggleSidebar}
+            aria-label="Close sidebar overlay"
           ></div>
         )}
         <EditorArea

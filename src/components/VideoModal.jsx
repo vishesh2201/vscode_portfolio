@@ -246,9 +246,21 @@ const VideoModal = ({ isOpen, onClose, projectName, videoSrc }) => {
 
     if (!isOpen) return null;
 
+    const handleBackdropClick = (e) => {
+        if (e.currentTarget === e.target) onClose();
+    };
+
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm">
-            <div className="relative w-full max-w-6xl mx-4 bg-[#1a1a1a] rounded-lg shadow-2xl overflow-hidden">
+        <div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-2 sm:p-4"
+            onClick={handleBackdropClick}
+            aria-modal="true"
+            role="dialog"
+        >
+            <div
+                className="relative w-[95vw] sm:w-full max-w-6xl max-h-[90vh] overflow-y-auto bg-[#1a1a1a] rounded-lg shadow-2xl"
+                onClick={(e) => e.stopPropagation()}
+            >
                 {/* Header */}
                 <div className="flex items-center justify-between p-4 bg-[#2a2a2a] border-b border-[#3a3a3a]">
                     <div className="flex items-center space-x-3">
@@ -278,11 +290,11 @@ const VideoModal = ({ isOpen, onClose, projectName, videoSrc }) => {
 
                 <div className="flex flex-col lg:flex-row">
                     {/* Video Section */}
-                    <div className="flex-1 p-6">
+                    <div className="flex-1 p-4 sm:p-6">
                         <div className="relative bg-black rounded-lg overflow-hidden">
                             <video
                                 ref={videoRef}
-                                className="w-full h-auto max-h-[60vh]"
+                                className="w-full h-auto max-h-[40vh] sm:max-h-[50vh] md:max-h-[60vh]"
                                 muted
                                 onTimeUpdate={handleTimeUpdate}
                                 onLoadedMetadata={handleLoadedMetadata}
@@ -333,7 +345,7 @@ const VideoModal = ({ isOpen, onClose, projectName, videoSrc }) => {
                     </div>
 
                     {/* Project Info Section */}
-                    <div className="w-full lg:w-80 p-6 bg-[#2a2a2a] border-l border-[#3a3a3a]">
+                    <div className="w-full lg:w-80 p-4 sm:p-6 bg-[#2a2a2a] border-t lg:border-t-0 lg:border-l border-[#3a3a3a]">
                         <div className="space-y-6">
                             <div>
                                 <div className="flex items-center space-x-3 mb-2">
